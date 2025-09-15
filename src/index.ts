@@ -1,7 +1,7 @@
 import { logger } from './server';
 
-export * from './factory';
 export * from './reporters';
+export * from './factory';
 export * from './constants';
 export * from './logger.h';
 export { formatJson } from './reporters/utils/formatJson';

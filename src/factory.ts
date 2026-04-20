@@ -1,5 +1,5 @@
 import { Logger } from './logger';
-import type { Factory, Options } from './logger.h';
+import type { Factory, Options, Logger as ILogger } from './logger.h';
 import { LEVELS } from './constants';
 
 const bindMethods = [
@@ -14,9 +14,7 @@ const bindMethods = [
   ...Object.keys(LEVELS),
 ];
 
-export const createLoggerFactory = (options: Options): Factory => {
-  const instance = new Logger(options);
-
+export const loggerFactoryFromInstance = (instance: ILogger): Factory => {
   return Object.assign(
     (opts: string | Options) => {
       return instance.child(opts);
@@ -36,4 +34,9 @@ export const createLoggerFactory = (options: Options): Factory => {
       clear: Logger.clear,
     }
   );
+};
+
+export const createLoggerFactory = (options: Options): Factory => {
+  const instance = new Logger(options);
+  return loggerFactoryFromInstance(instance);
 };

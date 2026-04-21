@@ -24,7 +24,11 @@ export class BrowserReporter implements Reporter {
         ? console.error
         : logObj.level === 20
           ? console.warn
-          : console.log;
+          : function log(...args) {
+              console.groupCollapsed(...args);
+              console.trace('trace');
+              console.groupEnd();
+            };
 
     // Styles
     const color = this.levelColorMap[logObj.level] || this.defaultColor;
